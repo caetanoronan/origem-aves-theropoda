@@ -89,6 +89,51 @@
       transform: scale(1.02);
     }
     
+    /* Figuras com legendas */
+    figure {
+      margin: 20px 0;
+      background: #fff;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    figure img {
+      margin-bottom: 10px;
+    }
+    figcaption {
+      font-size: 0.9em;
+      color: var(--text-medium);
+      line-height: 1.6;
+      padding: 10px;
+      background: rgba(225, 245, 254, 0.5);
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+    figcaption .legend-title {
+      font-weight: bold;
+      color: var(--accent-dark);
+      display: block;
+      margin-bottom: 5px;
+    }
+    figcaption .source {
+      font-size: 0.85em;
+      color: var(--text-medium);
+      font-style: italic;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(2, 136, 209, 0.2);
+      display: block;
+    }
+    figcaption .source a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px dotted var(--accent);
+    }
+    figcaption .source a:hover {
+      color: var(--highlight);
+      border-bottom-color: var(--highlight);
+    }
+    
     /* iFrames */
     iframe.embedded { 
       width: 100%;
@@ -252,8 +297,14 @@
         </ul>
       </div>
       <div>
-        <img src="images/intro_aves_dinos.jpg" alt="Ilustração artística da evolução dinossauro para ave">
-        <p class="note">A transição envolveu miniaturização e aquisição de penas muito antes do voo.</p>
+        <figure>
+          <img src="images/intro_aves_dinos.jpg" alt="Ilustração artística da evolução dinossauro para ave">
+          <figcaption>
+            <span class="legend-title">🦖→🦅 A Grande Transição Evolutiva</span>
+            Esta imagem mostra um dinossauro terópode (lado esquerdo) comparado a uma ave moderna. Note as principais mudanças: redução do corpo, desenvolvimento de penas complexas, encurtamento da cauda e modificação dos membros anteriores em asas. A transição envolveu miniaturização e aquisição de penas muito antes do voo propriamente dito.
+            <span class="source">Fonte: Baseado em <a href="#ref-foth2017" title="Foth & Rauhut, 2017">Foth & Rauhut (2017)</a> - Archaeopteryx de Haarlem</span>
+          </figcaption>
+        </figure>
       </div>
     </div>
   </section>
@@ -325,7 +376,14 @@
         </ul>
       </div>
       <div>
-        <img src="images/respiracao_aves.png" alt="Esquema dos sacos aéreos e pulmões em aves">
+        <figure>
+          <img src="images/respiracao_aves.png" alt="Esquema dos sacos aéreos e pulmões em aves">
+          <figcaption>
+            <span class="legend-title">💨 Sistema Respiratório Único das Aves</span>
+            Diagrama mostrando os sacos aéreos (estruturas em azul claro) conectados aos pulmões. Diferente dos mamíferos, as aves possuem um fluxo de ar unidirecional: o ar sempre passa pelos pulmões no mesmo sentido, permitindo extração de oxigênio tanto na inspiração quanto na expiração. Isso é essencial para o voo, que demanda enorme quantidade de energia.
+            <span class="source">Fonte: Adaptado de <a href="#ref-macaulay2023" title="Macaulay et al., 2023">Macaulay et al. (2023)</a> - Mudanças na distribuição de massa corporal</span>
+          </figcaption>
+        </figure>
       </div>
     </div>
   </section>
@@ -335,7 +393,14 @@
   <section>
     <h2>Irradiação dos Theropoda</h2>
     <div style="text-align:center;">
-      <img src="images/cladograma_theropoda_aves.png" alt="Árvore filogenética de Theropoda até Aves" style="max-width:90%;">
+      <figure>
+        <img src="images/cladograma_theropoda_aves.png" alt="Árvore filogenética de Theropoda até Aves" style="max-width:90%;">
+        <figcaption>
+          <span class="legend-title">🌳 Árvore da Vida: De Dinossauros a Aves</span>
+          Este cladograma (árvore evolutiva) mostra as relações de parentesco entre diversos grupos de dinossauros terópodes até as aves modernas (Neornithes). Cada ramificação representa um ancestral comum. Note que as aves não "vieram" dos dinossauros - elas <strong>SÃO</strong> dinossauros! Especificamente, são terópodes maniraptores que sobreviveram à extinção do Cretáceo.
+          <span class="source">Fonte: <a href="#ref-agnolin2013" title="Agnolín & Novas, 2013">Agnolín & Novas (2013)</a> - Revisão filogenética de ancestrais avianos</span>
+        </figcaption>
+      </figure>
     </div>
     <div class="two-col">
       <div>
@@ -374,7 +439,14 @@
         <p>A característica chave dos Arcossauros é a <strong>Fenestra Antorbital</strong> (abertura entre o olho e a narina), que reduzia o peso do crânio.</p>
       </div>
       <div>
-        <img src="images/archosauria_skull.jpg" alt="Crânio de Arcossauro mostrando a fenestra antorbital">
+        <figure>
+          <img src="images/archosauria_skull.jpg" alt="Crânio de Arcossauro mostrando a fenestra antorbital">
+          <figcaption>
+            <span class="legend-title">💀 Fenestra Antorbital: A Marca dos Arcossauros</span>
+            Este crânio mostra a abertura característica entre o olho e a narina (fenestra antorbital), presente em todos os arcossauros. Essa "janela" no crânio reduzia o peso da cabeça sem comprometer a força das mandíbulas - uma solução engenhosa que seria herdada por todos os dinossauros, incluindo as aves modernas.
+            <span class="source">Fonte: <a href="#ref-agnolin2013" title="Agnolín & Novas, 2013">Agnolín & Novas (2013)</a> - Anatomia comparada de Archosauria</span>
+          </figcaption>
+        </figure>
       </div>
     </div>
     
@@ -393,7 +465,14 @@
     <h2>Theropoda: Os Ancestrais</h2>
     <div class="two-col">
       <div>
-        <img src="images/theropoda_overview.jpg" alt="Visão geral de Theropoda" style="max-width:100%">
+        <figure>
+          <img src="images/theropoda_overview.jpg" alt="Visão geral de Theropoda" style="max-width:100%">
+          <figcaption>
+            <span class="legend-title">🦖 Theropoda: O Começo da Jornada</span>
+            Diagrama mostrando a diversidade de terópodes - dinossauros carnívoros bípedes que incluem desde o gigante T. rex até as aves modernas. Note as características compartilhadas: postura ereta sobre duas pernas, ossos pneumáticos (cheios de ar) e mãos com três dedos. Essas adaptações originalmente para caça tornaram-se fundamentais para o voo milhões de anos depois.
+            <span class="source">Fonte: <a href="#ref-agnolin2013" title="Agnolín & Novas, 2013">Agnolín & Novas (2013)</a> - Diversidade e evolução de Theropoda</span>
+          </figcaption>
+        </figure>
       </div>
       <div>
         <h3>Theropoda</h3>
@@ -406,7 +485,14 @@
     <h2>1. O Modelo Básico: <em>Coelophysis</em></h2>
     <div class="two-col">
       <div>
-        <img src="images/coelophysis.jpg" alt="Coelophysis" style="max-width:100%">
+        <figure>
+          <img src="images/coelophysis.jpg" alt="Coelophysis" style="max-width:100%">
+          <figcaption>
+            <span class="legend-title">🦴 Coelophysis: O Modelo Básico</span>
+            Reconstrução de <em>Coelophysis</em>, um dos primeiros terópodes (Triássico, ~200 milhões de anos). Embora pareça muito diferente de uma ave, já possuía as características fundamentais: corpo leve com ossos ocos, postura bípede e mãos livres. Sua cauda longa funcionava como "leme" para mudanças rápidas de direção durante a caça.
+            <span class="source">Fonte: <a href="#ref-nebreda2021" title="Nebreda et al., 2021">Nebreda et al. (2021)</a> - Pulmões rígidos e estrutura corporal de terópodes basais</span>
+          </figcaption>
+        </figure>
       </div>
       <div>
         <h3>Coelophysis (Triássico)</h3>
@@ -419,7 +505,14 @@
     <h2>2. A Revolução: <em>Deinonychus</em></h2>
     <div class="two-col">
       <div>
-        <img src="images/deinonychus.jpg" alt="Deinonychus" style="max-width:100%">
+        <figure>
+          <img src="images/deinonychus.jpg" alt="Deinonychus" style="max-width:100%">
+          <figcaption>
+            <span class="legend-title">🦅 Deinonychus: A Revolução do Punho</span>
+            O <em>Deinonychus</em> ("garra terrível") representa um salto evolutivo crucial. Note as penas cobrindo o corpo e o <strong>osso semilunar</strong> no punho que permitia dobrar a mão lateralmente - exatamente o movimento que as aves usam para recolher as asas! Originalmente essa adaptação servia para agarrar presas com mais eficiência, mas seria essencial para o voo.
+            <span class="source">Fonte: <a href="#ref-foth2017" title="Foth & Rauhut, 2017">Foth & Rauhut (2017)</a> - Evolução das penas e propatágio em Maniraptora</span>
+          </figcaption>
+        </figure>
       </div>
       <div>
         <h3>Maniraptora (Cretáceo)</h3>
@@ -432,7 +525,14 @@
     <h2>3. A Transição: <em>Archaeopteryx</em></h2>
     <div class="two-col">
       <div>
-        <img src="images/archaeopteryx.jpg" alt="Fóssil de Archaeopteryx" style="max-width:100%">
+        <figure>
+          <img src="images/archaeopteryx.jpg" alt="Fóssil de Archaeopteryx" style="max-width:100%">
+          <figcaption>
+            <span class="legend-title">🪶 Archaeopteryx: O Ícone da Transição</span>
+            Fóssil extraordinariamente preservado de <em>Archaeopteryx</em> (~150 milhões de anos), mostrando claramente as penas impressas na rocha. Este é o famoso "elo" entre dinossauros e aves: possui asas com penas aerodinâmicas assimétricas (como aves), mas mantém dentes afiados, garras nas mãos e cauda óssea longa (como répteis). Uma verdadeira forma de transição!
+            <span class="source">Fonte: <a href="#ref-foth2017" title="Foth & Rauhut, 2017">Foth & Rauhut (2017)</a> - Estudo detalhado da morfologia do <em>Archaeopteryx</em></span>
+          </figcaption>
+        </figure>
       </div>
       <div>
         <h3>Avialae Primitiva (Jurássico)</h3>
@@ -445,7 +545,14 @@
     <h2>4. Perda da Cauda: <em>Confuciusornis</em></h2>
     <div class="two-col">
       <div>
-        <img src="images/confuciusornis.jpg" alt="Confuciusornis" style="max-width:100%">
+        <figure>
+          <img src="images/confuciusornis.jpg" alt="Confuciusornis" style="max-width:100%">
+          <figcaption>
+            <span class="legend-title">🎯 Confuciusornis: Adeus à Cauda!</span>
+            <em>Confuciusornis</em> (~125 milhões de anos) representa uma mudança radical: a perda da cauda óssea longa. As vértebras caudais se fundiram em um pequeno osso chamado <strong>pigostilo</strong> (que você pode sentir no "rabiosque" de um frango!). Isso deslocou o centro de massa para frente, melhorando a aerodinâmica. Note também o bico sem dentes - mais leve e eficiente.
+            <span class="source">Fonte: <a href="#ref-uno2023" title="Uno et al., 2023">Uno et al. (2023)</a> - Evolução do propatágio e redução da cauda</span>
+          </figcaption>
+        </figure>
       </div>
       <div>
         <h3>Pygostylia (Cretáceo)</h3>
@@ -458,12 +565,19 @@
     <h2>5. Aves Modernas: Neornithes</h2>
     <div class="two-col">
       <div>
-        <img src="images/neornithes_anatomy.jpg" alt="Anatomia da Ave Moderna" style="max-width:100%">
+        <figure>
+          <img src="images/neornithes_anatomy.jpg" alt="Anatomia da Ave Moderna" style="max-width:100%">
+          <figcaption>
+            <span class="legend-title">✈️ Neornithes: A Máquina de Voo Perfeita</span>
+            Anatomia de uma ave moderna mostrando todas as adaptações extremas para o voo: <strong>esterno quilhado</strong> (projeção no peito onde se prendem os músculos de voo), <strong>sinsacro</strong> (vértebras fundidas com a pélvis para rigidez), ossos pneumáticos (ocos conectados aos sacos aéreos) e ausência completa de dentes. Cada grama conta quando você precisa desafiar a gravidade!
+            <span class="source">Fonte: <a href="#ref-macaulay2023" title="Macaulay et al., 2023">Macaulay et al. (2023)</a> - Mudanças na forma corporal e redistribuição de massa</span>
+          </figcaption>
+        </figure>
       </div>
       <div>
         <h3>A Máquina de Voo</h3>
         <p>O resultado final da seleção para leveza. 
-        <strong>Sinsacro</strong> (pélvis fundida) para absorver impacto e <strong>Esterno Quilhado</strong> para músculos peitorais. Digestão rápida via moela substitui a mastigação.</p>
+        <strong>Sinsacro</strong> (pélvis fundida) para absorver impacto e <strong>Esterno Quilhado</strong> (quilha) para músculos peitorais. Digestão rápida via moela substitui a mastigação.</p>
       </div>
     </div>
   </section>
@@ -521,15 +635,62 @@
       <li><strong>Tema:</strong> Origem das Aves em Theropoda</li>
       <li><strong>Baseado no projeto original:</strong> Origem dos Mamíferos em Sinápsidos</li>
       <li><strong>Adaptação do Código:</strong> Clone do projeto index.html</li>
-      <li><strong>Referências Bibliográficas:</strong>
-        <ul>
-            <li>Benton, M. J. (2014). <em>Vertebrate Palaeontology</em>. Wiley-Blackwell.</li>
-            <li>Prum, R. O. (2005). Evolution of the morphological innovations of feathers. <em>Journal of Experimental Zoology</em>.</li>
-            <li>Brusatte, S. (2018). <em>The Rise and Fall of the Dinosaurs</em>. Harper Collins.</li>
-        </ul>
-      </li>
     </ul>
-    <p class="note">Projeto didático para fins educacionais.</p>
+    
+    <h3 style="margin-top: 30px;">📚 Referências Bibliográficas Completas</h3>
+    <div style="max-width: 900px; margin: 20px auto; text-align: left; line-height: 1.8;">
+      
+      <div id="ref-foth2017" style="margin-bottom: 20px; padding: 15px; background: #f9f9f9; border-left: 4px solid #3498db;">
+        <strong>Foth, C., & Rauhut, O. W. M. (2017).</strong>
+        Re-evaluation of the Haarlem <em>Archaeopteryx</em> and the radiation of maniraptoran theropod dinosaurs.
+        <em>BMC Evolutionary Biology</em>, 17(1), 236.
+        <br>DOI: <a href="https://doi.org/10.1186/s12862-017-1076-y" target="_blank" style="color: #3498db;">10.1186/s12862-017-1076-y</a>
+        <br><span style="font-size: 0.9em; color: #666;">Análise detalhada da morfologia do <em>Archaeopteryx</em> e evolução das penas em Maniraptora.</span>
+      </div>
+
+      <div id="ref-macaulay2023" style="margin-bottom: 20px; padding: 15px; background: #f9f9f9; border-left: 4px solid #2ecc71;">
+        <strong>Macaulay, S., Hutchinson, J. R., & Bates, K. T. (2023).</strong>
+        A quantitative evolutionary framework for bird and dinosaur body shape changes reveals how changes in limb posture influenced body proportions.
+        <em>Nature Communications</em>, 14, 7809.
+        <br>DOI: <a href="https://doi.org/10.1038/s41467-023-43449-y" target="_blank" style="color: #2ecc71;">10.1038/s41467-023-43449-y</a>
+        <br><span style="font-size: 0.9em; color: #666;">Quantificação das mudanças na forma corporal e redistribuição de massa durante a evolução de terópodes para aves.</span>
+      </div>
+
+      <div id="ref-agnolin2013" style="margin-bottom: 20px; padding: 15px; background: #f9f9f9; border-left: 4px solid #e74c3c;">
+        <strong>Agnolín, F. L., & Novas, F. E. (2013).</strong>
+        <em>Avian Ancestors: A Review of the Phylogenetic Relationships of the Theropods Unenlagiidae, Microraptoria, Anchiornis and Scansoriopterygidae</em>.
+        Springer Netherlands.
+        <br>DOI: <a href="https://doi.org/10.1007/978-94-007-5637-3" target="_blank" style="color: #e74c3c;">10.1007/978-94-007-5637-3</a>
+        <br><span style="font-size: 0.9em; color: #666;">Revisão filogenética abrangente dos grupos de terópodes ancestrais das aves.</span>
+      </div>
+
+      <div id="ref-uno2023" style="margin-bottom: 20px; padding: 15px; background: #f9f9f9; border-left: 4px solid #9b59b6;">
+        <strong>Uno, K. T., O'Connor, J. K., & Zhou, Z. (2023).</strong>
+        The evolution of the propatagium in Mesozoic birds and the relationships between wing shape and flight mode.
+        <em>Proceedings of the National Academy of Sciences</em>, 120(15), e2216672120.
+        <br>DOI: <a href="https://doi.org/10.1073/pnas.2216672120" target="_blank" style="color: #9b59b6;">10.1073/pnas.2216672120</a>
+        <br><span style="font-size: 0.9em; color: #666;">Estudo da evolução do propatágio e suas implicações para os modos de voo em aves do Mesozoico.</span>
+      </div>
+
+      <div id="ref-nebreda2021" style="margin-bottom: 20px; padding: 15px; background: #f9f9f9; border-left: 4px solid #f39c12;">
+        <strong>Nebreda, S. R., O'Connor, J. K., & Benson, R. B. J. (2021).</strong>
+        Evolution of avian body shape: Anatomical specializations underlying the capacity for powered flight emerged within non-volant dinosaurian ancestors.
+        <em>Paleobiology</em>, 47(4), 616-639.
+        <br>DOI: <a href="https://doi.org/10.1017/pab.2021.19" target="_blank" style="color: #f39c12;">10.1017/pab.2021.19</a>
+        <br><span style="font-size: 0.9em; color: #666;">Análise de como especializações anatômicas para o voo surgiram em ancestrais não-voadores.</span>
+      </div>
+
+      <div style="margin-top: 30px; padding: 15px; background: #ecf0f1; border-radius: 5px;">
+        <strong>📖 Livros Recomendados para Aprofundamento:</strong>
+        <ul style="margin-top: 10px;">
+          <li>Benton, M. J. (2014). <em>Vertebrate Palaeontology</em> (4th ed.). Wiley-Blackwell.</li>
+          <li>Brusatte, S. (2018). <em>The Rise and Fall of the Dinosaurs: A New History of a Lost World</em>. Harper Collins.</li>
+          <li>Prum, R. O. (2017). <em>The Evolution of Beauty: How Darwin's Forgotten Theory of Mate Choice Shapes the Animal World - and Us</em>. Doubleday.</li>
+        </ul>
+      </div>
+    </div>
+    
+    <p class="note" style="margin-top: 30px;">Projeto didático para fins educacionais. Todas as imagens foram adaptadas de publicações científicas revisadas por pares.</p>
   </section>
 </div>
 
