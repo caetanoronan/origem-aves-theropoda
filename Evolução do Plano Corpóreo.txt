@@ -1,0 +1,53 @@
+<section>
+    <h2>Evolução do Plano Corpóreo: O Custo do Voo</h2>
+    <div class="mini-grid">
+      <div class="card">
+        <h3>Theropoda Basal</h3>
+        <p style="font-size:0.8em; margin-bottom:10px;">Ex: <em>Coelophysis</em></p>
+        <div class="chips">
+          <span class="chip chip-gray">🦷 Dentes presentes</span>
+          <span class="chip chip-gray">🦖 Cauda longa óssea</span>
+          <span class="chip chip-gray">🦴 Ossos densos</span>
+          <span class="chip chip-gray">✋ 3 dedos com garras</span>
+          <span class="chip chip-blue">❄️ Ectotermia (?)</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Maniraptora</h3>
+        <p style="font-size:0.8em; margin-bottom:10px;">Ex: <em>Deinonychus</em></p>
+        <div class="chips">
+          <span class="chip chip-amber">🪶 Penas (filamentos)</span>
+          <span class="chip chip-amber">🦴 Ossos pneumáticos</span>
+          <span class="chip chip-amber">🌙 Osso Semilunar (punho)</span>
+          <span class="chip chip-gray">🦷 Dentes presentes</span>
+          <span class="chip chip-amber">♨️ Metabolismo elevado</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Avialae (Primitivas)</h3>
+        <p style="font-size:0.8em; margin-bottom:10px;">Ex: <em>Archaeopteryx</em></p>
+        <div class="chips">
+          <span class="chip chip-purple">🦅 Voo batido/planado</span>
+          <span class="chip chip-purple">🪶 Penas assimétricas</span>
+          <span class="chip chip-gray">🦷 Dentes presentes</span>
+          <span class="chip chip-gray">🦖 Cauda longa óssea</span>
+          <span class="chip chip-green">🐦 Fúrcula robusta</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Neornithes</h3>
+        <p style="font-size:0.8em; margin-bottom:10px;">Ex: Aves atuais</p>
+        <div class="chips">
+          <span class="chip chip-green">🦜 Bico córneo (sem dentes)</span>
+          <span class="chip chip-green">🍑 Pigostilo (cauda curta)</span>
+          <span class="chip chip-green">✈️ Esterno quilhado</span>
+          <span class="chip chip-green">🦴 Sinsacro (fusão pélvica)</span>
+          <span class="chip chip-red">🔥 Endotermia estrita</span>
+        </div>
+      </div>
+    </div>
+    <p class="note">Ícones: 🦷 Alimentação; 🦖/🍑 Equilíbrio; 🦴 Estrutura óssea; 🪶 Tegumento. Cores: cinza = ancestral; âmbar/roxo = transição; verde = derivado moderno.</p>
+  </section>

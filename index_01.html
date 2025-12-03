@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Apresentação interativa sobre a origem das Aves em Theropoda, explorando a evolução de Dinosauria a Neornithes.">
+  <meta name="keywords" content="evolução, aves, dinossauros, theropoda, cladograma, paleontologia, biologia">
+  <title>Apresentação: Origem das Aves (Theropoda)</title>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.6.2/dist/reveal.css">
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.6.2/dist/theme/white.css" id="theme">
+  <style>
+    :root { 
+      /* Nova Paleta: Céu e Fóssil */
+      --accent: #0288D1; /* Azul Céu Profundo */
+      --accent-dark: #01579B;
+      --gradient-start: #E1F5FE; /* Azul muito claro */
+      --gradient-end: #B3E5FC; /* Azul claro */
+      --text-dark: #263238;
+      --text-medium: #455A64;
+      --highlight: #FF6F00; /* Laranja Fóssil para destaques */
+    }
+    body {
+      background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+      font-family: 'Source Sans Pro', Helvetica, sans-serif;
+      color: var(--text-dark);
+      margin: 0;
+      padding-bottom: 60px; /* Espaço para o player */
+    }
+    
+    /* Tipografia e Títulos */
+    h1 { 
+      color: var(--accent-dark); 
+      font-weight: 800;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      letter-spacing: -1px;
+      margin-bottom: 0.5em;
+    }
+    
+    h2 { 
+      color: var(--accent-dark); 
+      font-weight: 700;
+      border-bottom: 3px solid var(--highlight);
+      padding-bottom: 0.5rem;
+      display: inline-block;
+      margin-top: 1.5rem;
+    }
+    
+    h3 { 
+      color: var(--accent); 
+      font-weight: 600;
+    }
+
+    p, li, dd {
+      line-height: 1.7;
+      font-size: 1.1em;
+    }
+    
+    /* Links */
+    a { 
+      color: var(--accent); 
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+    a:hover {
+      color: var(--highlight);
+      border-bottom-color: var(--highlight);
+    }
+    
+    /* Layout */
+    .two-col { 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      gap: 40px; 
+      align-items: center;
+      padding: 20px 0;
+    }
+    @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+    
+    /* Imagens */
+    img {
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease;
+      max-width: 100%;
+      height: auto;
+    }
+    img:hover {
+      transform: scale(1.02);
+    }
+    
+    /* iFrames */
+    iframe.embedded { 
+      width: 100%;
+      max-width: 1200px;
+      height: 80vh;
+      margin: 20px auto;
+      border: 4px solid var(--accent);
+      border-radius: 12px;
+      background: #fff;
+    }
+    
+    /* Badges e Botões */
+    .badge { 
+      display: inline-block; 
+      padding: .4em .8em; 
+      border: 2px solid var(--accent);
+      border-radius: 20px; 
+      font-size: .85em;
+      background: #fff;
+      color: var(--accent-dark);
+      font-weight: bold;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .badge:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* Menu de Abas (Tabs) */
+    .tabs-menu {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      background: rgba(255,255,255,0.9);
+      padding: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(5px);
+    }
+    .tab-btn {
+      padding: 10px 20px;
+      border: none;
+      background: transparent;
+      color: var(--text-medium);
+      font-size: 1em;
+      font-weight: 600;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s;
+    }
+    .tab-btn:hover { color: var(--accent); background: rgba(225, 245, 254, 0.5); }
+    .tab-btn.active {
+      color: var(--accent-dark);
+      border-bottom-color: var(--accent);
+      background: rgba(225, 245, 254, 1);
+    }
+
+    /* Conteúdo das Abas */
+    .tab-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      animation: fadeIn 0.5s ease;
+    }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+    /* Mini Grid (Cards) */
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border-top: 4px solid var(--accent);
+    }
+    .card h3 { margin-top: 0; font-size: 1.1em; color: var(--text-dark); }
+    
+    /* Chips */
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .chip {
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 0.75em;
+      font-weight: 600;
+      border: 1px solid #ddd;
+    }
+    .chip-gray { background: #f5f5f5; color: #666; }
+    .chip-amber { background: #fff8e1; color: #f57f17; border-color: #ffecb3; }
+    .chip-green { background: #e8f5e9; color: #2e7d32; border-color: #c8e6c9; }
+    .chip-blue { background: #e3f2fd; color: #1565c0; border-color: #bbdefb; }
+    .chip-purple { background: #f3e5f5; color: #7b1fa2; border-color: #e1bee7; }
+    .chip-red { background: #ffebee; color: #c62828; border-color: #ffcdd2; }
+
+    /* Glossário */
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .glossary dt {
+      font-weight: 700;
+      color: var(--accent-dark);
+      margin-top: 15px;
+      background: #e1f5fe;
+      padding: 5px 10px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    .glossary dd { margin: 5px 0 10px 10px; color: var(--text-medium); }
+
+    /* Controles e Acessibilidade */
+    .skip-link { position: absolute; top: -40px; left: 0; background: #000; color: #fff; padding: 8px; z-index: 200; }
+    .skip-link:focus { top: 0; }
+    .note { font-style: italic; color: #78909c; font-size: 0.9em; margin-top: 10px; }
+
+  </style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Pular para conteúdo principal</a>
+
+<nav class="tabs-menu" role="tablist" aria-label="Navegação principal">
+  <button class="tab-btn active" data-tab="intro">Introdução</button>
+  <button class="tab-btn" data-tab="anatomia">Anatomia & Voo</button>
+  <button class="tab-btn" data-tab="irradiacao">Irradiação Theropoda</button>
+  <button class="tab-btn" data-tab="cladograma">Cladograma</button>
+  <button class="tab-btn" data-tab="contexto">Contexto: Archosauria</button>
+  <button class="tab-btn" data-tab="taxons">Táxons-Chave</button>
+  <button class="tab-btn" data-tab="glossario">Glossário</button>
+  <button class="tab-btn" data-tab="creditos">Créditos</button>
+</nav>
+
+<div class="tab-content" id="tab-intro" style="display:block;">
+  <section id="main-content">
+    <div style="text-align: center; margin-bottom: 40px;">
+      <h1>Origem das Aves em Theropoda</h1>
+      <h3>Dinosauria ➔ Avialae</h3>
+      <p style="max-width: 800px; margin: 0 auto;">
+        As aves não são apenas descendentes dos dinossauros; elas <strong>são</strong> dinossauros. 
+        Especificamente, são o único grupo de dinossauros terópodes (Maniraptora) que sobreviveu à extinção em massa do Cretáceo-Paleogeno (K-Pg).
+        Esta apresentação explora a transformação drástica do plano corpóreo: de predadores terrestres pesados para máquinas de voo leves e endotérmicas.
+      </p>
+    </div>
+    <div class="two-col">
+      <div>
+        <h3>Objetivos da Apresentação</h3>
+        <ul>
+          <li>Compreender a origem das aves dentro de <strong>Archosauria</strong> e <strong>Theropoda</strong>.</li>
+          <li>Analisar a evolução do <strong>aparato de voo</strong> (penas, ossos pneumáticos, fusão óssea).</li>
+          <li>Identificar as adaptações para o <strong>alto metabolismo</strong> (sacos aéreos, endotermia).</li>
+          <li>Discutir a perda de características reptilianas (cauda longa, dentes) em favor da leveza.</li>
+        </ul>
+      </div>
+      <div>
+        <img src="../images/intro_aves_dinos.jpg" alt="Ilustração artística da evolução dinossauro para ave">
+        <p class="note">A transição envolveu miniaturização e aquisição de penas muito antes do voo.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="tab-content" id="tab-anatomia" style="display:none;">
+  <section>
+    <h2>Evolução do Plano Corpóreo: O Custo do Voo</h2>
+    <p>A principal pressão seletiva na origem das aves foi a <strong>redução de peso</strong> e o deslocamento do <strong>centro de massa</strong> para o controle aéreo.</p>
+    
+    <div class="mini-grid">
+      <div class="card">
+        <h3>Theropoda Basal</h3>
+        <p style="font-size:0.8em; margin-bottom:10px;">Ex: <em>Coelophysis</em></p>
+        <div class="chips">
+          <span class="chip chip-gray">🦷 Dentes presentes</span>
+          <span class="chip chip-gray">🦖 Cauda longa óssea</span>
+          <span class="chip chip-gray">🦴 Ossos densos</span>
+          <span class="chip chip-gray">✋ 3 dedos com garras</span>
+          <span class="chip chip-blue">❄️ Ectotermia (?)</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Maniraptora</h3>
+        <p style="font-size:0.8em; margin-bottom:10px;">Ex: <em>Deinonychus</em></p>
+        <div class="chips">
+          <span class="chip chip-amber">🪶 Penas (filamentos)</span>
+          <span class="chip chip-amber">🦴 Ossos pneumáticos</span>
+          <span class="chip chip-amber">🌙 Osso Semilunar (punho)</span>
+          <span class="chip chip-gray">🦷 Dentes presentes</span>
+          <span class="chip chip-amber">♨️ Metabolismo elevado</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Avialae (Primitivas)</h3>
+        <p style="font-size:0.8em; margin-bottom:10px;">Ex: <em>Archaeopteryx</em></p>
+        <div class="chips">
+          <span class="chip chip-purple">🦅 Voo batido/planado</span>
+          <span class="chip chip-purple">🪶 Penas assimétricas</span>
+          <span class="chip chip-gray">🦷 Dentes presentes</span>
+          <span class="chip chip-gray">🦖 Cauda longa óssea</span>
+          <span class="chip chip-green">🐦 Fúrcula robusta</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Neornithes</h3>
+        <p style="font-size:0.8em; margin-bottom:10px;">Ex: Aves atuais</p>
+        <div class="chips">
+          <span class="chip chip-green">🦜 Bico córneo (sem dentes)</span>
+          <span class="chip chip-green">🍑 Pigostilo (cauda curta)</span>
+          <span class="chip chip-green">✈️ Esterno quilhado</span>
+          <span class="chip chip-green">🦴 Sinsacro (fusão pélvica)</span>
+          <span class="chip chip-red">🔥 Endotermia estrita</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-top:40px;">
+      <div>
+        <h3>Metabolismo e Respiração</h3>
+        <p>Para sustentar o voo, as aves desenvolveram o sistema respiratório mais eficiente dos vertebrados.</p>
+        <ul>
+          <li><strong>Sacos Aéreos:</strong> Bombeiam ar continuamente através dos pulmões rígidos.</li>
+          <li><strong>Fluxo Unidirecional:</strong> O ar rico em oxigênio passa pelos pulmões tanto na inspiração quanto na expiração.</li>
+          <li><strong>Pneumaticidade:</strong> Os sacos aéreos invadem os ossos (úmero, fêmur, vértebras), tornando o esqueleto extremamente leve.</li>
+        </ul>
+      </div>
+      <div>
+        <img src="../images/respiracao_aves.png" alt="Esquema dos sacos aéreos e pulmões em aves">
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="tab-content" id="tab-irradiacao" style="display:none;">
+  <section>
+    <h2>Irradiação dos Theropoda</h2>
+    <div style="text-align:center;">
+      <img src="../images/cladograma_theropoda_aves.png" alt="Árvore filogenética de Theropoda até Aves" style="max-width:90%;">
+    </div>
+    <div class="two-col">
+      <div>
+        <h3>A Sobrevivência K-Pg</h3>
+        <p>Enquanto todos os dinossauros não-avianos foram extintos há 66 milhões de anos, a linhagem das aves (Neornithes) sobreviveu. Hipóteses para o sucesso incluem:</p>
+        <ul>
+          <li>Pequeno porte e necessidades energéticas menores (comparado aos gigantes).</li>
+          <li>Bico capaz de comer sementes (alimento disponível após o colapso da fotossíntese).</li>
+          <li>Capacidade de voo para buscar refúgios.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>O Grande Salto</h3>
+        <p>A irradiação moderna (Neoaves) ocorreu explosivamente logo após a extinção, ocupando os nichos ecológicos deixados pelos dinossauros terrestres e pterossauros aéreos.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="tab-content" id="tab-cladograma" style="display:none;">
+  <section>
+    <h2>Cladograma Interativo</h2>
+    <p>Visualize a posição das aves dentro do grupo Dinosauria.</p>
+    <p class="note">Este iframe deve apontar para o seu arquivo D3.js adaptado para aves.</p>
+    <iframe class="embedded" src="../cladograma_aves_d3.html"></iframe>
+  </section>
+</div>
+
+<div class="tab-content" id="tab-contexto" style="display:none;">
+  <section>
+    <h2>Contexto Evolutivo: Archosauria</h2>
+    <div class="two-col">
+      <div>
+        <h3>Diápsidos e Archosauria</h3>
+        <p>Diferente dos mamíferos (Sinápsidos), as aves pertencem aos <strong>Diápsidos</strong> (duas fenestras temporais). Dentro deste grupo, são <strong>Archosauria</strong>, clado que compartilham com os crocodilos.</p>
+        <p>A característica chave dos Arcossauros é a <strong>Fenestra Antorbital</strong> (abertura entre o olho e a narina), que reduzia o peso do crânio.</p>
+      </div>
+      <div>
+        <img src="../images/archosauria_skull.jpg" alt="Crânio de Arcossauro mostrando a fenestra antorbital">
+      </div>
+    </div>
+    
+    <div style="margin-top: 30px; text-align: center;">
+      <h3>Saurischia vs. Ornithischia</h3>
+      <p style="max-width: 800px; margin: 0 auto;">
+        Ironicamente, as aves evoluíram dentro do grupo <strong>Saurischia</strong> ("bacia de réptil"), e não dos Ornithischia ("bacia de ave"). A estrutura pélvica das aves reverteu para a forma "fechada" independentemente durante a evolução dos Maniraptora.
+      </p>
+    </div>
+  </section>
+</div>
+
+<div class="tab-content" id="tab-taxons" style="display:none;">
+  
+  <section>
+    <h2>Theropoda: Os Ancestrais</h2>
+    <div class="two-col">
+      <div>
+        <img src="../images/theropoda_overview.jpg" alt="Visão geral de Theropoda" style="max-width:100%">
+      </div>
+      <div>
+        <h3>Theropoda</h3>
+        <p>O grupo que inclui todos os dinossauros carnívoros bípedes e as aves. A "pré-adaptação" para o voo começou aqui: ossos ocos (pneumáticos), postura bípede obrigatória e pés com três dedos funcionais (tridáctilos).</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="margin-top:40px; border-top: 1px solid #eee; padding-top:20px;">
+    <h2>1. O Modelo Básico: <em>Coelophysis</em></h2>
+    <div class="two-col">
+      <div>
+        <img src="../images/coelophysis.jpg" alt="Coelophysis" style="max-width:100%">
+      </div>
+      <div>
+        <h3>Coelophysis (Triássico)</h3>
+        <p>Um terópode basal, ágil e leve. Embora não tivesse penas complexas, seus ossos já eram extremamente ocos. Representa o plano corpóreo ancestral: dentes afiados, cauda longa para equilíbrio e mãos livres.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="margin-top:40px; border-top: 1px solid #eee; padding-top:20px;">
+    <h2>2. A Revolução: <em>Deinonychus</em></h2>
+    <div class="two-col">
+      <div>
+        <img src="../images/deinonychus.jpg" alt="Deinonychus" style="max-width:100%">
+      </div>
+      <div>
+        <h3>Maniraptora (Cretáceo)</h3>
+        <p>Aqui surgem as características críticas. O <em>Deinonychus</em> possuía o <strong>osso semilunar</strong> no punho, permitindo dobrar a mão lateralmente (movimento de bater asas), originalmente para agarrar presas. Cobertos por penas filamentosas (endotermia).</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="margin-top:40px; border-top: 1px solid #eee; padding-top:20px;">
+    <h2>3. A Transição: <em>Archaeopteryx</em></h2>
+    <div class="two-col">
+      <div>
+        <img src="../images/archaeopteryx.jpg" alt="Fóssil de Archaeopteryx" style="max-width:100%">
+      </div>
+      <div>
+        <h3>Avialae Primitiva (Jurássico)</h3>
+        <p>O ícone da evolução. Possui <strong>penas assimétricas</strong> (aerodinâmicas) e braços longos transformados em asas. Porém, mantém o "lastro" reptiliano: dentes, garras nas mãos e longa cauda óssea.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="margin-top:40px; border-top: 1px solid #eee; padding-top:20px;">
+    <h2>4. Perda da Cauda: <em>Confuciusornis</em></h2>
+    <div class="two-col">
+      <div>
+        <img src="../images/confuciusornis.jpg" alt="Confuciusornis" style="max-width:100%">
+      </div>
+      <div>
+        <h3>Pygostylia (Cretáceo)</h3>
+        <p>Passo crucial: a perda da longa cauda óssea. As vértebras caudais fundiram-se no <strong>pigostilo</strong>, encurtando o corpo e deslocando o centro de massa para frente. Apresenta um dos primeiros <strong>bicos córneos</strong> sem dentes.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="margin-top:40px; border-top: 1px solid #eee; padding-top:20px;">
+    <h2>5. Aves Modernas: Neornithes</h2>
+    <div class="two-col">
+      <div>
+        <img src="../images/neornithes_anatomy.jpg" alt="Anatomia da Ave Moderna" style="max-width:100%">
+      </div>
+      <div>
+        <h3>A Máquina de Voo</h3>
+        <p>O resultado final da seleção para leveza. 
+        <strong>Sinsacro</strong> (pélvis fundida) para absorver impacto e <strong>Esterno Quilhado</strong> para músculos peitorais. Digestão rápida via moela substitui a mastigação.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="tab-content" id="tab-glossario" style="display:none;">
+  <section>
+    <h2>Glossário: Termos Evolutivos</h2>
+    <div class="glossary glossary-grid">
+      <dl>
+        <dt>Archosauria</dt>
+        <dd>Clado dos "répteis dominantes" que inclui crocodilos, pterossauros e dinossauros. Caracterizados pela fenestra antorbital.</dd>
+        
+        <dt>Theropoda</dt>
+        <dd>Subordem de dinossauros bípedes, majoritariamente carnívoros. Origem da pneumaticidade óssea.</dd>
+        
+        <dt>Propatágio</dt>
+        <dd>Membrana de pele e músculo na borda anterior da asa (entre ombro e punho). [cite_start]Evidências fósseis em <em>Microraptor</em> sugerem que surgiu em maniraptoras não-voadores[cite: 14].</dd>
+
+        <dt>Centro de Massa (CoM)</dt>
+        <dd>Ponto de equilíbrio do corpo. [cite_start]A evolução das aves envolveu o deslocamento do CoM para frente (devido à perda da cauda e aumento das asas), alterando a postura das pernas para um formato agachado[cite: 400].</dd>
+
+        <dt>Maniraptora</dt>
+        <dd>Clado onde surgiram o osso semilunar (punho flexível) e penas complexas. Inclui Velociraptors e Aves.</dd>
+        
+        <dt>Pneumaticidade</dt>
+        <dd>Presença de cavidades cheias de ar dentro dos ossos, conectadas aos sacos aéreos. Reduz o peso sem perder resistência.</dd>
+        
+        <dt>Sacos Aéreos</dt>
+        <dd>Extensões do sistema respiratório que permitem fluxo de ar unidirecional (respiração contínua).</dd>
+        
+        <dt>Pigostilo</dt>
+        <dd>Estrutura formada pela fusão das últimas vértebras caudais. Substitui a cauda longa, servindo de âncora para penas.</dd>
+        
+        <dt>Sinsacro</dt>
+        <dd>Fusão maciça de vértebras com a pélvis. Cria uma estrutura rígida para absorver o choque do pouso.</dd>
+        
+        <dt>Fúrcula</dt>
+        <dd>Fusão das duas clavículas ("osso da sorte"). Age como uma mola elástica durante o bater das asas.</dd>
+        
+        <dt>Osso Semilunar</dt>
+        <dd>Osso do carpo (punho) que permite dobrar a mão lateralmente contra o antebraço (recolher a asa).</dd>
+        
+        <dt>Esterno Quilhado</dt>
+        <dd>Extensão óssea no peito onde se inserem os poderosos músculos peitorais de voo.</dd>
+        
+        <dt>Exaptação</dt>
+        <dd>Quando uma característica evolui para uma função (ex: penas para calor) e depois é usada para outra (voo).</dd>
+        
+        <dt>Ranfoteca</dt>
+        <dd>A capa córnea que reveste o bico das aves modernas, substituindo os dentes pesados.</dd>
+      </dl>
+    </div>
+  </section>
+</div>
+
+<div class="tab-content" id="tab-creditos" style="display:none;">
+  <section>
+    <h2>Créditos e Referências</h2>
+    <ul>
+      <li><strong>Tema:</strong> Origem das Aves em Theropoda</li>
+      <li><strong>Baseado no projeto original:</strong> Origem dos Mamíferos em Sinápsidos</li>
+      <li><strong>Adaptação do Código:</strong> Clone do projeto index.html</li>
+      <li><strong>Referências Bibliográficas:</strong>
+        <ul>
+            <li>Benton, M. J. (2014). <em>Vertebrate Palaeontology</em>. Wiley-Blackwell.</li>
+            <li>Macaulay, S., et al. (2023). <em>Decoupling body shape and mass distribution in birds and their dinosaurian ancestors</em>. [cite_start]Nature Communications[cite: 394].</li>
+            <li>Nebreda, S. M., et al. (2021). <em>‘Dinosaur-bird’ macroevolution, locomotor modules and the origins of flight</em>. [cite_start]Journal of Iberian Geology[cite: 4133].</li>
+            <li>Uno, Y. & Hirasawa, T. (2023). <em>Origin of the propatagium in non-avian dinosaurs</em>. [cite_start]Zoological Letters[cite: 4].</li>
+            <li>Foth, C. & Rauhut, O. W. M. (2017). <em>Re-evaluation of the Haarlem Archaeopteryx...</em>. [cite_start]BMC Evolutionary Biology[cite: 1040].</li>
+            <li>Agnolín, F. L. & Novas, F. E. (2013). <em>Avian Ancestors</em>. [cite_start]SpringerBriefs in Earth System Sciences[cite: 1734].</li>
+        </ul>
+      </li>
+    </ul>
+    <p class="note">Projeto didático para fins educacionais.</p>
+  </section>
+</div>
+
+<script>
+  // Controle de Abas
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function(){
+      // Remove classe ativa de todos
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      // Ativa o botão clicado
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      
+      // Esconde todos os conteúdos
+      document.querySelectorAll('.tab-content').forEach(tc => {
+        tc.style.display = 'none';
+      });
+      
+      // Mostra o conteúdo alvo
+      const tabId = btn.getAttribute('data-tab');
+      const targetContent = document.getElementById('tab-' + tabId);
+      if(targetContent) {
+        targetContent.style.display = 'block';
+        // Scroll suave para o topo do conteúdo
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      }
+    });
+  });
+
+  // Acessibilidade via teclado (Setas)
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  tabButtons.forEach((btn, index) => {
+    btn.addEventListener('keydown', (e) => {
+      let newIndex = null;
+      if (e.key === 'ArrowRight') {
+        newIndex = (index + 1) % tabButtons.length;
+      } else if (e.key === 'ArrowLeft') {
+        newIndex = (index - 1 + tabButtons.length) % tabButtons.length;
+      }
+      
+      if (newIndex !== null) {
+        tabButtons[newIndex].focus();
+        // Opcional: Clicar automaticamente ao navegar
+        // tabButtons[newIndex].click(); 
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
