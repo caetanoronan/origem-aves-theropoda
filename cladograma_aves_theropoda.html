@@ -413,9 +413,9 @@
             <button class="theme-toggle" onclick="toggleDarkMode()">
                 🌙 Modo Escuro
             </button>
-            <a href="cladograma_aves_theropoda.html" target="_blank" class="btn-fullscreen" title="Abrir em nova aba">
-                🔗 Abrir em Nova Aba
-            </a>
+            <button class="btn-fullscreen" onclick="toggleFullscreen()" title="Ativar/desativar tela cheia">
+                ⛶ Tela Cheia
+            </button>
         </div>
         <svg id="cladogram"></svg>
     </div>
@@ -425,9 +425,9 @@
         <img id="details-image" src="images/theropoda_overview.jpg" alt="Visão geral">
         <p id="details-text"><strong>👆 Clique em um táxon para ver os detalhes.</strong><br><br>Este cladograma mostra a transição gradual de dinossauros Theropoda basais para formas cada vez mais avianas, culminando nas aves modernas. As principais transformações ocorreram na estrutura do esqueleto, desenvolvimento de penas, e adaptações para o voo.</p>
         <div id="details-era" class="era" style="display:none;"></div>
-        <a href="cladograma_aves_theropoda.html" target="_blank" class="btn-fullscreen-secondary" style="display: inline-block; margin-top: 15px; width: 100%;">
-            🔗 Abrir em Tela Cheia
-        </a>
+        <button class="btn-fullscreen-secondary" onclick="toggleFullscreen()" style="display: inline-block; margin-top: 15px; width: 100%;">
+            ⛶ Ativar Tela Cheia
+        </button>
     </div>
 </div>
 
@@ -678,6 +678,33 @@ function showDetails(taxonId) {
         });
     }
 }
+
+// Função para ativar/desativar tela cheia
+function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+        // Entrar em tela cheia
+        document.documentElement.requestFullscreen().catch(err => {
+            console.log(`Erro ao ativar tela cheia: ${err.message}`);
+        });
+    } else {
+        // Sair da tela cheia
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
+    }
+}
+
+// Atualizar texto do botão quando entrar/sair de tela cheia
+document.addEventListener('fullscreenchange', () => {
+    const buttons = document.querySelectorAll('.btn-fullscreen, .btn-fullscreen-secondary');
+    buttons.forEach(btn => {
+        if (document.fullscreenElement) {
+            btn.textContent = btn.classList.contains('btn-fullscreen') ? '⛶ Sair Tela Cheia' : '⛶ Sair Tela Cheia';
+        } else {
+            btn.textContent = btn.classList.contains('btn-fullscreen') ? '⛶ Tela Cheia' : '⛶ Ativar Tela Cheia';
+        }
+    });
+});
 
 // Inicializar o cladograma e verificar tema
 drawCladogram();
