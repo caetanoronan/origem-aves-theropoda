@@ -30,7 +30,7 @@
             background: white;
             border-radius: 16px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 600px;
+            max-width: 800px;
             width: 100%;
             padding: 40px;
             text-align: center;
@@ -149,6 +149,72 @@
             border: 1px solid #ddd;
         }
 
+        .resources {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #eee;
+            text-align: left;
+        }
+
+        .resources h2 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .resource-item {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .resource-item h3 {
+            font-size: 14px;
+            color: #667eea;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .resource-item p {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .resource-item a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .resource-item a:hover {
+            text-decoration: underline;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
         @media (max-width: 600px) {
             .container {
                 padding: 25px;
@@ -222,6 +288,24 @@
             <span class="taxa-badge">Archaeopteryx</span>
             <span class="taxa-badge">Confuciusornis</span>
             <span class="taxa-badge">Neornithes</span>
+        </div>
+
+        <div class="resources">
+            <h2>📚 Recursos Complementares</h2>
+            
+            <div class="resource-item">
+                <h3>📰 Artigo USP</h3>
+                <p>Pesquisa sobre como o tamanho das estruturas sensoriais pode ter influenciado no sucesso evolutivo dos dinossauros.</p>
+                <a href="https://jornal.usp.br/ciencias/tamanho-das-estruturas-sensoriais-pode-ter-influenciado-no-sucesso-evolutivo-dos-dinossauros/" target="_blank">Ler artigo completo →</a>
+            </div>
+
+            <div class="resource-item">
+                <h3>🎥 Vídeo: Os Primeiros Dinossauros</h3>
+                <p>Documentário sobre os primeiros dinossauros e o papel do equilíbrio em sua evolução.</p>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/DR2VFRiTpdw" title="Os primeiros dinossauros: equilíbrio" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </div>
         </div>
 
         <footer style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #eee; font-size: 12px; color: #999;">
