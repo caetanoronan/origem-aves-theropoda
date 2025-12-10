@@ -261,6 +261,50 @@
             box-shadow: 0 4px 10px var(--shadow);
         }
 
+        .btn-fullscreen {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px var(--shadow);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-fullscreen:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px var(--shadow);
+        }
+
+        .btn-fullscreen-secondary {
+            background: var(--accent-color);
+            color: white !important;
+            border: none;
+            padding: 10px 16px !important;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px var(--shadow);
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-fullscreen-secondary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px var(--shadow);
+        }
+
         .time-axis text {
             fill: var(--text-color);
         }
@@ -369,6 +413,9 @@
             <button class="theme-toggle" onclick="toggleDarkMode()">
                 🌙 Modo Escuro
             </button>
+            <a href="cladograma_aves_theropoda.html" target="_blank" class="btn-fullscreen" title="Abrir em nova aba">
+                🔗 Abrir em Nova Aba
+            </a>
         </div>
         <svg id="cladogram"></svg>
     </div>
@@ -377,7 +424,10 @@
         <h2 id="details-title">Bem-vindo!</h2>
         <img id="details-image" src="images/theropoda_overview.jpg" alt="Visão geral">
         <p id="details-text"><strong>👆 Clique em um táxon para ver os detalhes.</strong><br><br>Este cladograma mostra a transição gradual de dinossauros Theropoda basais para formas cada vez mais avianas, culminando nas aves modernas. As principais transformações ocorreram na estrutura do esqueleto, desenvolvimento de penas, e adaptações para o voo.</p>
-        <div id="details-era" class="era" style="display:none;"></div>        
+        <div id="details-era" class="era" style="display:none;"></div>
+        <a href="cladograma_aves_theropoda.html" target="_blank" class="btn-fullscreen-secondary" style="display: inline-block; margin-top: 15px; width: 100%;">
+            🔗 Abrir em Tela Cheia
+        </a>
     </div>
 </div>
 
