@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <title>Cladograma Interativo: Evolução de Theropoda → Aves</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #E8F4F8;
+            --text-color: #1a1a1a;
+            --border-color: #b3dfe5;
+            --card-bg: #f0fafc;
+            --accent-color: #0066cc;
+            --hover-color: rgba(0, 102, 204, 0.15);
+            --era-bg: #d4eef5;
+            --shadow: rgba(0,0,0,0.12);
+            --branch-color: #2c3e50;
+        }
+
+        .dark-mode {
+            --bg-color: #1a1a1a;
+            --text-color: #e9ecef;
+            --border-color: #495057;
+            --card-bg: #2d3748;
+            --accent-color: #4dabf7;
+            --hover-color: rgba(77, 171, 247, 0.2);
+            --era-bg: #343a40;
+            --shadow: rgba(0,0,0,0.3);
+            --branch-color: #adb5bd;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #E8F4F8 0%, #D0E8EF 100%);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            min-height: 100vh;
+        }
+
+        .dark-mode body {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--text-color);
+            font-size: clamp(20px, 4vw, 32px);
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px var(--shadow);
+        }
+
+        .wrapper {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        .cladogram-container {
+            position: relative;
+            flex: 1;
+            min-width: 0;
+            height: 900px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: var(--card-bg);
+            box-shadow: 0 8px 24px var(--shadow);
+        }
+
+        .cladogram-container svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .taxon-name {
+            font-size: 15px;
+            font-style: italic;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid var(--border-color);
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        .dark-mode .taxon-name {
+            background: rgba(45, 55, 72, 0.8);
+        }
+
+        .taxon-name:hover {
+            background-color: var(--hover-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px var(--shadow);
+        }
+
+        .taxon-name.active {
+            background-color: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .skull-image {
+            width: 120px;
+            height: 80px;
+            object-fit: contain;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+            background: white;
+            padding: 4px;
+            filter: drop-shadow(0 2px 4px var(--shadow));
+        }
+
+        .skull-image:hover {
+            transform: scale(1.15);
+            filter: drop-shadow(0 6px 12px var(--shadow));
+            border-color: var(--accent-color);
+            z-index: 10;
+        }
+
+        .age-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-color);
+            padding: 4px 8px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.95);
+            border: 1px solid var(--accent-color);
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+
+        .dark-mode .age-label {
+            background: rgba(45, 55, 72, 0.95);
+            color: #e9ecef;
+        }
+
+        .branch {
+            stroke: var(--branch-color);
+            stroke-width: 3;
+            fill: none;
+            stroke-linecap: round;
+        }
+
+        .group-label {
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--accent-color);
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .details-container {
+            width: 420px;
+            min-width: 320px;
+            max-width: 450px;
+            padding: 25px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            background-color: var(--card-bg);
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+            max-height: 900px;
+            overflow-y: auto;
+            box-shadow: 0 8px 24px var(--shadow);
+        }
+
+        .details-container h2 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+            font-size: clamp(22px, 3vw, 28px);
+            font-weight: 700;
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+
+        .details-container img {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: contain;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 2px solid var(--border-color);
+            background: white;
+            padding: 10px;
+            box-shadow: 0 4px 12px var(--shadow);
+            transition: opacity 0.3s ease;
+            opacity: 1;
+        }
+
+        .details-container p {
+            line-height: 1.7;
+            font-size: 14px;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        .era {
+            font-size: 14px;
+            color: var(--text-color);
+            background-color: var(--era-bg);
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 5px solid var(--accent-color);
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .era strong {
+            color: var(--accent-color);
+        }
+
+        .controls {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--card-bg);
+            padding: 8px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px var(--shadow);
+            border: 2px solid var(--border-color);
+            display: flex;
+            gap: 8px;
+            z-index: 100;
+        }
+
+        .theme-toggle {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px var(--shadow);
+        }
+
+        .theme-toggle:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px var(--shadow);
+        }
+
+        .time-axis text {
+            fill: var(--text-color);
+        }
+
+        .time-axis path,
+        .time-axis line {
+            stroke: var(--text-color);
+        }
+
+        /* Responsividade para tablets */
+        @media (max-width: 1200px) {
+            .wrapper {
+                flex-direction: column;
+            }
+
+            .details-container {
+                width: 100%;
+                max-width: 100%;
+                position: relative;
+                top: 0;
+                max-height: none;
+            }
+
+            .cladogram-container {
+                height: 700px;
+            }
+        }
+
+        /* Responsividade para mobile */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+
+            .cladogram-container {
+                height: 600px;
+            }
+
+            .details-container {
+                padding: 20px;
+            }
+
+            .skull-image {
+                width: 100px;
+                height: 65px;
+            }
+
+            .taxon-name {
+                font-size: 13px;
+                padding: 4px 8px;
+            }
+
+            .age-label {
+                font-size: 11px;
+                padding: 3px 6px;
+            }
+
+            .group-label {
+                font-size: 11px;
+            }
+
+            .controls {
+                top: 10px;
+                right: 10px;
+                padding: 6px;
+            }
+
+            .theme-toggle {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+        }
+
+        /* Scrollbar personalizada */
+        .details-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .details-container::-webkit-scrollbar-track {
+            background: var(--era-bg);
+            border-radius: 4px;
+        }
+
+        .details-container::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .details-container::-webkit-scrollbar-thumb:hover {
+            background: var(--branch-color);
+        }
+    </style>
+</head>
+<body>
+
+<h1>🦅 Cladograma Interativo: Evolução de Theropoda → Aves</h1>    
+
+<div class="wrapper">
+    <div class="cladogram-container">
+        <div class="controls">
+            <button class="theme-toggle" onclick="toggleDarkMode()">
+                🌙 Modo Escuro
+            </button>
+        </div>
+        <svg id="cladogram"></svg>
+    </div>
+
+    <div class="details-container">
+        <h2 id="details-title">Bem-vindo!</h2>
+        <img id="details-image" src="images/theropoda_overview.jpg" alt="Visão geral">
+        <p id="details-text"><strong>👆 Clique em um táxon para ver os detalhes.</strong><br><br>Este cladograma mostra a transição gradual de dinossauros Theropoda basais para formas cada vez mais avianas, culminando nas aves modernas. As principais transformações ocorreram na estrutura do esqueleto, desenvolvimento de penas, e adaptações para o voo.</p>
+        <div id="details-era" class="era" style="display:none;"></div>        
+    </div>
+</div>
+
+<script>
+// Dados do cladograma
+const cladogramData = {
+    euparkeria: {
+        title: 'Euparkeria',
+        text: 'Arcossauromorfo basal do Triássico Médio (245 Ma). Euparkeria capensis é um representante primitivo da linhagem que levaria aos crocodilianos e dinossauros. Apresentava características cranianas únicas, postura semi-ereta e pequeno tamanho (~60cm). Essencial para entender a origem dos grandes répteis do Mesozoico.',
+        image: 'images/Euparkeria_capensis.png',
+        era: '<strong>Período:</strong> Triássico Médio (~245 Ma) | <strong>Tamanho:</strong> ~60 cm',  
+        y: 120,
+        age: 245
+    },
+    marasuchus: {
+        title: 'Marasuchus',
+        text: 'Dinossauromorfo basal do Triássico Médio (235 Ma). Marasuchus lilloensis, anteriormente denominado Lagosuchus, é um dos primeiros representantes da linhagem que levou aos dinossauros verdadeiros. Apresentava membros posteriores alongados, postura completamente bípede e tamanho reduzido (~40cm).',
+        image: 'images/Marasuchus_lilloensis.jpg',
+        era: '<strong>Período:</strong> Triássico Médio (~235 Ma) | <strong>Tamanho:</strong> ~40 cm',
+        y: 200,
+        age: 235
+    },
+    guaibasaurus: {
+        title: 'Guaibasaurus',
+        text: 'Dinossauro basal do Triássico Superior (225 Ma). Guaibasaurus candelariensis é um dos primeiros saurópodomotfos e um importante representante da diversificação inicial dos dinossauros no Brasil. Mostra características transicionais entre terópodes e saurópodes, com tamanho intermediário (~2-3 metros).',
+        image: 'images/Guaibasaurus_candelariensis.jpg',
+        era: '<strong>Período:</strong> Triássico Superior (~225 Ma) | <strong>Tamanho:</strong> ~2-3 m',
+        y: 280,
+        age: 225
+    },
+    coelophysis: {
+        title: 'Coelophysis',
+        text: 'Terópode primitivo do Triássico Superior (215 Ma). Coelophysis bauri é um dos dinossauros celurosauro mais antigos conhecidos. Era um predador ativo, pequeno a médio, com corpo esbelto, membros delgados e cauda longa. Representa um estágio inicial na evolução da postura e locomoção dos grandes terópodes predadores.',
+        image: 'images/Coelophysis_bauri.jpg',
+        era: '<strong>Período:</strong> Triássico Superior (~215 Ma) | <strong>Tamanho:</strong> ~2-3 m',  
+        y: 390,
+        age: 215
+    },
+    archaeopteryx: {
+        title: 'Archaeopteryx',
+        text: 'Fóssil transicional do Jurássico Superior (150 Ma). Archaeopteryx lithographica é o fóssil mais importante para entender a origem evolutiva das aves. Combina características de dinossauros terópodes (dentes, cauda óssea, garras nas asas) com características avianas avançadas (penas simétricas e assimétricas, asas, furca). Evidência clara da evolução do voo.',
+        image: 'images/Archaeopteryx_caçando_um_jovem.jpg',
+        era: '<strong>Período:</strong> Jurássico Superior (~150 Ma) | <strong>Tamanho:</strong> ~50-60 cm',
+        y: 490,
+        age: 150
+    },
+    confuciusornis: {
+        title: 'Confuciusornis',
+        text: 'Ave primitiva do Cretáceo Inferior (125 Ma). Confuciusornis sanctus é uma ave já bem definida, com penas bem-desenvolvidas, bico queratinoso sem dentes e pernas adaptadas para pousio. Porém, mantinha garras nas asas e asas menos especializadas que aves modernas. Representa um estágio intermediário na evolução das aves voadoras.',
+        image: 'images/Life reconstruction of Confuciusornis shifan..jpg',
+        era: '<strong>Período:</strong> Cretáceo Inferior (~125 Ma) | <strong>Tamanho:</strong> ~25-30 cm',
+        y: 590,
+        age: 125
+    },
+    neornithes: {
+        title: 'Neornithes (Aves Modernas)',
+        text: 'Diversidade aviária moderna (0 Ma até presente). As aves modernas (>10.000 espécies viventes) representam a culminação de ~150 milhões de anos de evolução. Possuem esqueleto pneumático, sistema respiratório unidirecional de alta eficiência, asas perfeitamente especializadas para voo, penas com múltiplas funções e metabolismo elevado.',
+        image: 'images/Neornithes_species.png',
+        era: '<strong>Período:</strong> Cretáceo Superior ao Presente | <strong>Diversidade:</strong> >10.000 espécies',
+        y: 690,
+        age: 0
+    }
+};
+
+// Configuração do D3 - centralizado com melhor distribuição
+const svg = d3.select('#cladogram')
+    .attr('width', '100%')
+    .attr('height', '100%')
+    .attr('viewBox', '-50 0 900 800')
+    .attr('preserveAspectRatio', 'xMidYMid meet')
+    .style('margin', '0 auto')
+    .style('display', 'block');
+
+const g = svg.append('g');
+
+// Função para alternar modo escuro
+function toggleDarkMode() {
+    const body = document.body;
+    const isDarkMode = body.classList.contains('dark-mode');
+    const themeButton = document.querySelector('.theme-toggle');
+
+    if (isDarkMode) {
+        body.classList.remove('dark-mode');
+        themeButton.textContent = '🌙 Modo Escuro';
+        themeButton.title = 'Ativar modo escuro';
+    } else {
+        body.classList.add('dark-mode');
+        themeButton.textContent = '☀️ Modo Claro';
+        themeButton.title = 'Ativar modo claro';
+    }
+
+    // Salvar preferência do usuário
+    localStorage.setItem('darkMode', !isDarkMode);
+}
+
+// Verificar preferência salva do usuário
+function checkSavedTheme() {
+    const savedDarkMode = localStorage.getItem('darkMode') === 'true';        
+    const themeButton = document.querySelector('.theme-toggle');
+
+    if (savedDarkMode) {
+        document.body.classList.add('dark-mode');
+        themeButton.textContent = '☀️ Modo Claro';
+        themeButton.title = 'Ativar modo claro';
+    }
+}
+
+// Desenhar o cladograma
+function drawCladogram() {
+    // Limpar o SVG
+    g.selectAll('*').remove();
+
+    // Grupos taxonômicos - centralizados com mais espaço superior
+    const groups = [
+        { name: 'Archosauromorpha', y: 140, height: 100 },
+        { name: 'Dinosauromorpha', y: 300, height: 150 },
+        { name: 'Theropoda', y: 530, height: 220 }
+    ];
+
+    // Desenhar grupos
+    groups.forEach(group => {
+        g.append('text')
+            .attr('class', 'group-label')
+            .attr('x', 30)
+            .attr('y', group.y)
+            .attr('transform', `rotate(-90, 30, ${group.y})`)
+            .text(group.name);
+
+        // Colchetes dos grupos
+        g.append('path')
+            .attr('class', 'branch')
+            .attr('d', `M50,${group.y - group.height/2} L80,${group.y - group.height/2} L80,${group.y + group.height/2} L50,${group.y + group.height/2}`)
+            .style('fill', 'none')
+            .style('stroke-width', '2');
+    });
+
+    // Linha principal vertical do cladograma
+    g.append('line')
+        .attr('class', 'branch')
+        .attr('x1', 80)
+        .attr('y1', 120)
+        .attr('x2', 80)
+        .attr('y2', 690);
+
+    // Desenhar linhas do cladograma
+    Object.entries(cladogramData).forEach(([key, data], index) => {
+        // Linha horizontal do tronco principal até o táxon
+        g.append('line')
+            .attr('class', 'branch')
+            .attr('x1', 80)
+            .attr('y1', data.y)
+            .attr('x2', 350)
+            .attr('y2', data.y);
+
+        // Adicionar rótulo de idade na linha
+        g.append('foreignObject')
+            .attr('x', 180)
+            .attr('y', data.y - 50)
+            .attr('width', 60)
+            .attr('height', 28)
+            .append('xhtml:div')
+            .attr('class', 'age-label')
+            .style('text-align', 'center')
+            .text(`${data.age} Ma`);
+
+        // Adicionar nome do táxon
+        const taxonGroup = g.append('foreignObject')
+            .attr('x', 350)
+            .attr('y', data.y - 18)
+            .attr('width', 200)
+            .attr('height', 40);
+
+        taxonGroup.append('xhtml:div')
+            .attr('class', 'taxon-name')
+            .text(data.title)
+            .style('cursor', 'pointer')
+            .on('click', () => showDetails(key));
+
+        // Adicionar imagem do dinossauro/ave
+        const imageGroup = g.append('foreignObject')
+            .attr('x', 570)
+            .attr('y', data.y - 45)
+            .attr('width', 130)
+            .attr('height', 95);
+
+        imageGroup.append('xhtml:img')
+            .attr('class', 'skull-image')
+            .attr('src', data.image)
+            .attr('alt', data.title)
+            .attr('loading', 'lazy')
+            .style('cursor', 'pointer')
+            .on('click', () => showDetails(key))
+            .on('error', function() {
+                // Fallback caso a imagem não carregue
+                d3.select(this).attr('src', 'images/theropoda_overview.jpg');
+            });
+    });
+}
+
+// Função para mostrar detalhes
+function showDetails(taxonId) {
+    const data = cladogramData[taxonId];
+
+    // Remover classe active de todos os táxons
+    d3.selectAll('.taxon-name').classed('active', false);
+
+    // Adicionar classe active ao táxon selecionado
+    d3.selectAll('.taxon-name').each(function() {
+        if (d3.select(this).text() === data.title) {
+            d3.select(this).classed('active', true);
+        }
+    });
+
+    // Atualizar detalhes com animação suave
+    const detailsImage = document.getElementById('details-image');
+    const detailsTitle = document.getElementById('details-title');
+    const detailsText = document.getElementById('details-text');
+    const detailsEra = document.getElementById('details-era');
+
+    // Fade out
+    detailsImage.style.opacity = '0.5';
+    
+    setTimeout(() => {
+        detailsTitle.textContent = data.title;        
+        detailsImage.src = data.image;
+        detailsImage.alt = data.title;
+        detailsText.textContent = data.text;
+        detailsEra.innerHTML = data.era;
+        detailsEra.style.display = 'block';
+        
+        // Fade in após carregar
+        detailsImage.onload = function() {
+            detailsImage.style.opacity = '1';
+        };
+        
+        // Fallback em caso de erro
+        detailsImage.onerror = function() {
+            this.src = 'images/theropoda_overview.jpg';
+            this.style.opacity = '1';
+        };
+    }, 150);
+
+    // Scroll suave para o topo do painel de detalhes em mobile
+    if (window.innerWidth <= 1200) {
+        document.querySelector('.details-container').scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+        });
+    }
+}
+
+// Inicializar o cladograma e verificar tema
+drawCladogram();
+checkSavedTheme();
+</script>
+
+</body>
+</html>
