@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cladograma Interativo - Theropoda → Aves</title>
+    <meta name="description" content="Cladograma interativo mostrando a evolução dos dinossauros Theropoda até as aves modernas">
+    <meta name="keywords" content="cladograma, theropoda, aves, evolução, dinossauros, paleontologia">
+    <meta property="og:title" content="Cladograma Interativo: Theropoda → Aves">
+    <meta property="og:description" content="Explore a evolução dos dinossauros até as aves modernas através de um cladograma interativo">
+    <meta property="og:url" content="https://caetanoronan.github.io/origem-aves-theropoda/">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .emoji {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .ctas {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #eee;
+        }
+
+        .feature {
+            text-align: left;
+        }
+
+        .feature-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .feature-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .feature-desc {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .taxa {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+
+        .taxa-label {
+            font-size: 12px;
+            color: #999;
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        .taxa-badge {
+            background: #f0f0f0;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #666;
+            border: 1px solid #ddd;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .emoji {
+                font-size: 36px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .ctas {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="emoji">🦅</div>
+        <h1>Cladograma Interativo</h1>
+        <p><strong>Evolução de Theropoda → Aves Modernas</strong></p>
+        
+        <p>Explore uma visualização interativa da evolução dos dinossauros Theropoda até as aves modernas, com dados científicos, fosseis e reconstruções artísticas.</p>
+
+        <div class="ctas">
+            <a href="../Aves/cladograma_aves_theropoda.html" class="btn btn-primary">🚀 Explorar Cladograma</a>
+            <a href="../Aves/CLADOGRAM_README.md" class="btn btn-secondary">📖 Documentação</a>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🎨</div>
+                <div class="feature-title">Responsivo</div>
+                <div class="feature-desc">Desktop, tablet e mobile</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🌙</div>
+                <div class="feature-title">Modo Escuro</div>
+                <div class="feature-desc">Tema claro e escuro</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📊</div>
+                <div class="feature-title">Interativo</div>
+                <div class="feature-desc">Clique para detalhes</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔬</div>
+                <div class="feature-title">Científico</div>
+                <div class="feature-desc">Baseado em fosseis</div>
+            </div>
+        </div>
+
+        <div class="taxa">
+            <div class="taxa-label">7 Táxons Representados:</div>
+            <span class="taxa-badge">Euparkeria</span>
+            <span class="taxa-badge">Marasuchus</span>
+            <span class="taxa-badge">Guaibasaurus</span>
+            <span class="taxa-badge">Coelophysis</span>
+            <span class="taxa-badge">Archaeopteryx</span>
+            <span class="taxa-badge">Confuciusornis</span>
+            <span class="taxa-badge">Neornithes</span>
+        </div>
+
+        <footer style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #eee; font-size: 12px; color: #999;">
+            <p>Projeto: Origem das Aves em Theropoda | UFSC</p>
+            <p><a href="https://github.com/caetanoronan/origem-aves-theropoda" style="color: #667eea; text-decoration: none;">Ver no GitHub →</a></p>
+        </footer>
+    </div>
+</body>
+</html>
